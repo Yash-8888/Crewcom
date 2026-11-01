@@ -261,7 +261,6 @@ section { position: relative; z-index: 2; }
 .scroll-cue { color: #8793a2; font-size: .7rem; }
 .scroll-cue span { background: #aab6ff; }
 .hero-side-note { color: #687384; }
-.marquee { display: none; }
 .statement { padding-top: 16vh; padding-bottom: 16vh; }
 .section-kicker span { color: #aab6ff; }
 .statement-copy { max-width: 970px; font-size: clamp(2rem, 4.7vw, 4.35rem); font-weight: 600; letter-spacing: -.06em; line-height: 1.2; }

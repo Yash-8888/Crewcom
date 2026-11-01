@@ -8,7 +8,7 @@ import "./index.css";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 // Replace this with your real Crewcom email address.
-const EMAIL = "hello@example.com";
+const EMAIL = "yourreal@email.com";
 
 const LETTERS = "CREWCOM".split("");
 
@@ -19,6 +19,20 @@ const STATEMENT =
 
 const ROW_ONE = ["Design", "Frontend", "Backend", "Launch"];
 const ROW_TWO = ["Strategy", "Build", "Ship", "Grow"];
+
+function MarqueeRow({ words, className }: { words: string[]; className: string }) {
+  const tripled = [...words, ...words, ...words];
+  return (
+    <div className={`marquee-row ${className}`}>
+      {tripled.map((word, index) => (
+        <span key={`${word}-${index}`} className="marquee-item">
+          <span>{word}</span>
+          <b>✦</b>
+        </span>
+      ))}
+    </div>
+  );
+}
 
 const SERVICES = [
   {
@@ -86,20 +100,6 @@ const PROJECTS = [
   },
 ];
 
-function MarqueeRow({ words, className }: { words: string[]; className: string }) {
-  const doubled = [...words, ...words, ...words];
-  return (
-    <div className={`marquee-row ${className}`}>
-      {doubled.map((word, index) => (
-        <span key={`${word}-${index}`} className="marquee-item">
-          <span>{word}</span>
-          <b>✦</b>
-        </span>
-      ))}
-    </div>
-  );
-}
-
 export default function App() {
   const root = useRef<HTMLDivElement>(null);
   const glow = useRef<HTMLDivElement>(null);
@@ -118,7 +118,6 @@ export default function App() {
 
       // Keep motion restrained for visitors who request reduced motion.
       media.add("(prefers-reduced-motion: no-preference)", () => {
-        const random = gsap.utils.random;
         const heroLetters = select(".hero-letter i");
         const track = select(".service-track")[0] as HTMLElement | undefined;
 
@@ -160,6 +159,9 @@ export default function App() {
           yoyo: true,
           ease: "sine.inOut",
         });
+
+        gsap.to(select(".marquee-one"), { xPercent: -33.333, duration: 22, ease: "none", repeat: -1 });
+        gsap.fromTo(select(".marquee-two"), { xPercent: -33.333 }, { xPercent: 0, duration: 26, ease: "none", repeat: -1 });
 
         gsap.set(select(".statement-word"), { opacity: 0.18 });
         gsap.to(select(".statement-word"), {
@@ -317,6 +319,11 @@ export default function App() {
           <div className="hero-side-note">INDEPENDENT DIGITAL STUDIO · EST. 2026</div>
         </section>
 
+
+        <div className="marquee" aria-hidden="true">
+          <MarqueeRow words={ROW_ONE} className="marquee-one" />
+          <MarqueeRow words={ROW_TWO} className="marquee-outline marquee-two" />
+        </div>
 
         <section className="statement section-wrap" id="intro">
           <div className="section-kicker">A little about us <span>✳</span></div>
